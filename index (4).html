@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noir Absolu — Fine Fragrance House</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12100e;
+    --charcoal:#1c1916;
+    --ivory:#efe8da;
+    --parchment:#e3d9c4;
+    --gold:#b6924f;
+    --gold-bright:#d4af6a;
+    --wine:#5a1f24;
+    --line: rgba(239,232,218,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--ivory);
+    font-family:'Jost', sans-serif;
+    font-weight:300;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 40px;}
+  @media(max-width:640px){.wrap{padding:0 24px;}}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    padding:28px 0;
+    transition: background .4s ease, padding .4s ease, border-color .4s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.scrolled{
+    background:rgba(18,16,14,0.92);
+    backdrop-filter: blur(10px);
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+  }
+  nav{display:flex; align-items:center; justify-content:space-between;}
+  .brandmark{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.5rem;
+    letter-spacing:0.14em;
+    color:var(--ivory);
+  }
+  .brandmark em{font-style:italic; color:var(--gold-bright);}
+  .navlinks{display:flex; gap:44px; font-size:0.86rem;}
+  .navlinks a{
+    position:relative; padding-bottom:4px; color:var(--parchment);
+  }
+  .navlinks a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--gold-bright); transition:width .3s ease;
+  }
+  .navlinks a:hover::after{width:100%;}
+  .navlinks{ }
+  @media(max-width:780px){ .navlinks{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex; align-items:center;
+    padding-top:120px;
+    background:
+      radial-gradient(ellipse 60% 50% at 78% 30%, rgba(182,146,79,0.16), transparent 60%),
+      linear-gradient(180deg, #14110f 0%, #100e0c 100%);
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.1fr 0.9fr; gap:60px; align-items:center;
+    width:100%;
+  }
+  @media(max-width:900px){ .hero-grid{grid-template-columns:1fr; gap:70px;} }
+
+  .eyebrow-line{
+    display:flex; align-items:center; gap:14px; margin-bottom:26px;
+  }
+  .eyebrow-line .dash{width:34px; height:1px; background:var(--gold);}
+  .eyebrow-line span{font-size:0.82rem; letter-spacing:0.08em; color:var(--parchment); opacity:0.8;}
+
+  .hero h1{
+    font-size:clamp(2.6rem, 5.4vw, 4.6rem);
+    line-height:1.04;
+    color:var(--ivory);
+    max-width:11ch;
+  }
+  .hero h1 .accent{
+    color:var(--gold-bright);
+    font-style:italic;
+  }
+  .hero p.lede{
+    margin-top:28px;
+    max-width:38ch;
+    font-size:1.08rem;
+    color:var(--parchment);
+    opacity:0.88;
+  }
+  .hero-actions{margin-top:44px; display:flex; align-items:center; gap:30px;}
+  .btn-primary{
+    display:inline-block;
+    padding:16px 34px;
+    background:var(--gold-bright);
+    color:#181410;
+    font-size:0.85rem;
+    letter-spacing:0.05em;
+    border-radius:2px;
+    transition:background .3s ease, transform .3s ease;
+  }
+  .btn-primary:hover{background:#e6c483; transform:translateY(-1px);}
+  .btn-ghost{
+    font-size:0.85rem; color:var(--ivory); border-bottom:1px solid var(--line); padding-bottom:3px;
+  }
+
+  .bottle-stage{
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+    height:560px;
+  }
+  .bottle-photo{
+    width:100%; height:100%; object-fit:cover; object-position:center;
+    filter:drop-shadow(0 30px 60px rgba(0,0,0,0.55));
+    -webkit-mask-image: radial-gradient(ellipse 78% 92% at 50% 50%, #000 60%, transparent 100%);
+            mask-image: radial-gradient(ellipse 78% 92% at 50% 50%, #000 60%, transparent 100%);
+  }
+  .stage-ring{
+    position:absolute; width:340px; height:340px; border-radius:50%;
+    border:1px solid var(--line); pointer-events:none;
+  }
+  .stage-ring.r2{width:440px; height:440px; border-color:rgba(239,232,218,0.07);}
+
+  /* ---------- IMAGE BAND ---------- */
+  .image-band{
+    position:relative; height:64vh; min-height:420px; overflow:hidden;
+  }
+  .image-band img{
+    width:100%; height:100%; object-fit:cover; object-position:center 30%;
+  }
+  .image-band::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(18,16,14,0.15) 0%, rgba(18,16,14,0.75) 100%);
+  }
+  .image-band-caption{
+    position:absolute; left:0; right:0; bottom:44px; text-align:center; z-index:2;
+  }
+  .image-band-caption span{
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.4rem; color:var(--ivory);
+  }
+
+  /* ---------- MARQUEE / STRIP ---------- */
+  .strip{
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:26px 0; overflow:hidden; white-space:nowrap;
+    background:var(--charcoal);
+  }
+  .strip-track{
+    display:inline-flex; gap:60px; animation:scroll 34s linear infinite;
+    font-family:'Cormorant Garamond', serif; font-size:1.1rem; color:var(--parchment); opacity:0.7;
+  }
+  .strip-track span{display:inline-flex; align-items:center; gap:60px;}
+  .strip-track em{color:var(--gold); font-style:normal;}
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{padding:140px 0;}
+  @media(max-width:780px){section{padding:90px 0;}}
+  .section-head{
+    display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:end;
+    margin-bottom:80px;
+  }
+  @media(max-width:780px){.section-head{grid-template-columns:1fr; gap:20px;}}
+  .section-head h2{font-size:clamp(2rem, 3.6vw, 3rem); max-width:12ch;}
+  .section-head p{color:var(--parchment); opacity:0.78; max-width:44ch; font-size:0.98rem;}
+
+  /* ---------- STORY ---------- */
+  .story{background:var(--ink);}
+  .story-grid{display:grid; grid-template-columns: 0.9fr 1.1fr; gap:80px; align-items:center;}
+  @media(max-width:900px){.story-grid{grid-template-columns:1fr; gap:50px;}}
+  .story-figure{position:relative; height:460px;}
+  .story-figure svg{height:100%; width:100%;}
+  .story-copy p{color:var(--parchment); opacity:0.85; margin-bottom:20px; font-size:1.02rem; max-width:52ch;}
+  .story-copy .cap{
+    font-family:'Cormorant Garamond', serif; font-size:1.6rem; color:var(--ivory); font-style:italic; margin-bottom:24px;
+  }
+
+  /* ---------- COLLECTION ---------- */
+  .collection{background:var(--charcoal); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .scent-list{display:flex; flex-direction:column;}
+  .scent{
+    display:grid; grid-template-columns: 90px 1.4fr 1.6fr 140px; gap:36px; align-items:center;
+    padding:38px 0; border-top:1px solid var(--line);
+    transition:background .3s ease;
+  }
+  .scent:last-child{border-bottom:1px solid var(--line);}
+  .scent:hover{background:rgba(182,146,79,0.045);}
+  @media(max-width:860px){
+    .scent{grid-template-columns:70px 1fr; grid-template-areas:"num name" "num note" "num price"; row-gap:8px;}
+    .scent-name{grid-area:name;} .scent-note{grid-area:note;} .scent-price{grid-area:price;}
+  }
+  .scent-num{font-family:'Cormorant Garamond', serif; font-size:1.1rem; color:var(--gold); opacity:0.8;}
+  .scent-name{font-family:'Cormorant Garamond', serif; font-size:1.65rem; color:var(--ivory);}
+  .scent-name small{display:block; font-family:'Jost',sans-serif; font-size:0.78rem; letter-spacing:0.05em; color:var(--parchment); opacity:0.65; margin-top:4px; font-weight:400;}
+  .scent-note{font-size:0.92rem; color:var(--parchment); opacity:0.72;}
+  .scent-price{font-family:'Cormorant Garamond', serif; font-size:1.2rem; color:var(--gold-bright); text-align:right;}
+  @media(max-width:860px){.scent-price{text-align:left;}}
+
+  /* ---------- CRAFT ---------- */
+  .craft-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);}
+  @media(max-width:780px){.craft-grid{grid-template-columns:1fr;}}
+  .craft-card{background:var(--ink); padding:52px 44px;}
+  .craft-num{font-family:'Cormorant Garamond', serif; color:var(--gold); font-size:1.3rem; font-style:italic; margin-bottom:22px;}
+  .craft-card h3{font-size:1.5rem; margin-bottom:16px; color:var(--ivory);}
+  .craft-card p{font-size:0.94rem; color:var(--parchment); opacity:0.75;}
+
+  /* ---------- QUOTE ---------- */
+  .quote{
+    background:
+      linear-gradient(180deg, rgba(90,31,36,0.28), rgba(18,16,14,0)),
+      var(--ink);
+    text-align:center;
+    padding:150px 0;
+  }
+  .quote blockquote{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:clamp(1.6rem, 3.4vw, 2.5rem);
+    max-width:20ch; margin:0 auto; color:var(--ivory);
+    line-height:1.4;
+  }
+  .quote cite{
+    display:block; margin-top:28px; font-style:normal; font-size:0.82rem;
+    letter-spacing:0.08em; color:var(--gold); opacity:0.85;
+  }
+
+  /* ---------- NEWSLETTER / FOOTER ---------- */
+  footer{background:var(--charcoal); border-top:1px solid var(--line); padding-top:110px;}
+  .foot-grid{
+    display:grid; grid-template-columns: 1.3fr 0.7fr 0.7fr 1fr; gap:50px;
+    padding-bottom:80px; border-bottom:1px solid var(--line);
+  }
+  @media(max-width:860px){.foot-grid{grid-template-columns:1fr 1fr; row-gap:50px;}}
+  .foot-brand h2{font-size:2rem; margin-bottom:18px;}
+  .foot-brand p{color:var(--parchment); opacity:0.7; max-width:36ch; font-size:0.92rem;}
+  .foot-col h4{font-size:0.8rem; letter-spacing:0.06em; color:var(--gold); margin-bottom:20px; font-weight:400;}
+  .foot-col a, .foot-col p{display:block; font-size:0.92rem; color:var(--parchment); opacity:0.8; margin-bottom:12px;}
+  .foot-col a:hover{color:var(--ivory);}
+  .foot-form{display:flex; border-bottom:1px solid var(--line); padding-bottom:10px;}
+  .foot-form input{
+    flex:1; background:transparent; border:none; outline:none; color:var(--ivory);
+    font-family:'Jost',sans-serif; font-size:0.92rem; padding:8px 0;
+  }
+  .foot-form input::placeholder{color:var(--parchment); opacity:0.5;}
+  .foot-form button{
+    background:none; border:none; color:var(--gold-bright); font-size:0.85rem; cursor:pointer; letter-spacing:0.04em;
+  }
+  .foot-bottom{
+    display:flex; justify-content:space-between; align-items:center; padding:30px 0 50px;
+    font-size:0.78rem; color:var(--parchment); opacity:0.55; flex-wrap:wrap; gap:12px;
+  }
+
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    .strip-track{animation:none;}
+  }
+  a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var(--gold-bright); outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="brandmark">NOIR <em>ABSOLU</em></a>
+      <div class="navlinks">
+        <a href="#story">The House</a>
+        <a href="#collection">Collection</a>
+        <a href="#craft">Craft</a>
+        <a href="#contact">Visit</a>
+      </div>
+      <a href="#contact" class="btn-ghost">Book a Fitting</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow-line"><span class="dash"></span><span>Paris · Established 2014</span></div>
+      <h1>Scent, composed<br>like <span class="accent">memory.</span></h1>
+      <p class="lede">Noir Absolu is a small fragrance house built around a single idea: that a perfume should feel less like a product and more like a place you return to.</p>
+      <div class="hero-actions">
+        <a href="#collection" class="btn-primary">Explore the Collection</a>
+        <a href="#story" class="btn-ghost">Our Story</a>
+      </div>
+    </div>
+    <div class="bottle-stage">
+      <div class="stage-ring"></div>
+      <div class="stage-ring r2"></div>
+      <img class="bottle-photo" src="https://images.unsplash.com/photo-1709662369957-0cbf9f8452fc?fm=jpg&amp;q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="A Noir Absolu perfume bottle being hand-filled with fragrance in the atelier">
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="strip-track">
+    <span>Hand-blended in small batches <em>·</em> Ten fragrances, no more <em>·</em> Recyclable glass &amp; refill program <em>·</em> Shipping worldwide <em>·</em></span>
+    <span>Hand-blended in small batches <em>·</em> Ten fragrances, no more <em>·</em> Recyclable glass &amp; refill program <em>·</em> Shipping worldwide <em>·</em></span>
+  </div>
+</div>
+
+<section class="story" id="story">
+  <div class="wrap story-grid">
+    <div class="story-figure reveal">
+      <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?fm=jpg&amp;q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Sunlit reflections through glass perfume bottles" style="width:100%; height:100%; object-fit:cover; border-radius:2px;">
+    </div>
+    <div class="story-copy reveal">
+      <p class="cap">"We do not chase trends. We chase a single feeling, precisely."</p>
+      <p>Noir Absolu began in a rented perfumer's studio in the 11th arrondissement, where founder and nose Élise Vasseur set herself one rule: every fragrance had to be traceable to a real place, a real hour of the day, a real season.</p>
+      <p>A decade on, the house still works this way — ten fragrances total, each aged for months before release, each one blended by hand in batches small enough that Élise still signs the first bottle of every run.</p>
+      <p>We believe restraint is a luxury. So we make less, and we make it properly.</p>
+    </div>
+  </div>
+</section>
+
+<section class="collection" id="collection">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The Collection</h2>
+      <p>Ten fragrances, arranged not by category but by the hour they are best worn — from the first coffee to the last candle.</p>
+    </div>
+    <div class="scent-list">
+      <div class="scent reveal">
+        <div class="scent-num">01</div>
+        <div class="scent-name">Cendre<small>Worn before dawn</small></div>
+        <div class="scent-note">Smoked cedar, black tea, a trace of wet stone.</div>
+        <div class="scent-price">$185</div>
+      </div>
+      <div class="scent reveal">
+        <div class="scent-num">02</div>
+        <div class="scent-name">Fleur de Sel<small>Worn at midday</small></div>
+        <div class="scent-note">Salted orange blossom, fig leaf, warm linen.</div>
+        <div class="scent-price">$185</div>
+      </div>
+      <div class="scent reveal">
+        <div class="scent-num">03</div>
+        <div class="scent-name">Velours Noir<small>Worn after dark</small></div>
+        <div class="scent-note">Black plum, oud, tobacco flower.</div>
+        <div class="scent-price">$210</div>
+      </div>
+      <div class="scent reveal">
+        <div class="scent-num">04</div>
+        <div class="scent-name">Jardin Sec<small>Worn in late summer</small></div>
+        <div class="scent-note">Dried lavender, hay, sun-warmed skin.</div>
+        <div class="scent-price">$185</div>
+      </div>
+      <div class="scent reveal">
+        <div class="scent-num">05</div>
+        <div class="scent-name">Ambre 11<small>Worn on cold evenings</small></div>
+        <div class="scent-note">Amber resin, clove, a whisper of vanilla bean.</div>
+        <div class="scent-price">$225</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="image-band">
+  <img src="https://images.unsplash.com/photo-1758225502621-9102d2856dc8?fm=jpg&amp;q=80&amp;w=2000&amp;auto=format&amp;fit=crop" alt="A shelf of Noir Absolu fragrance bottles in the atelier">
+  <div class="image-band-caption"><span>Every bottle, kept where the light can find it.</span></div>
+</div>
+
+<section class="craft" id="craft">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>How it's made</h2>
+      <p>Every bottle passes through three hands before it reaches yours.</p>
+    </div>
+  </div>
+  <div class="craft-grid">
+    <div class="craft-card reveal">
+      <div class="craft-num">I.</div>
+      <h3>The Composition</h3>
+      <p>Élise builds each formula from raw absolutes and essential oils, often revising a blend for over a year before she's satisfied.</p>
+    </div>
+    <div class="craft-card reveal">
+      <div class="craft-num">II.</div>
+      <h3>The Maceration</h3>
+      <p>Once blended, each batch rests in dark glass for six to ten weeks, allowing the notes to fully marry before bottling.</p>
+    </div>
+    <div class="craft-card reveal">
+      <div class="craft-num">III.</div>
+      <h3>The Bottle</h3>
+      <p>Bottled and hand-labelled in Paris, in glass designed to be refilled rather than replaced.</p>
+    </div>
+  </div>
+</section>
+
+<section class="quote">
+  <div class="wrap">
+    <blockquote>
+      "A good perfume should not announce itself. It should simply mean that you were in the room."
+      <cite>— Élise Vasseur, Founder &amp; Perfumer</cite>
+    </blockquote>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <h2>Visit the atelier</h2>
+        <p>By appointment only, in the 11th arrondissement, Paris — or reach us for shipping to the US, UK, EU, and across Asia.</p>
+      </div>
+      <div class="foot-col">
+        <h4>House</h4>
+        <a href="#story">Our Story</a>
+        <a href="#craft">Craft</a>
+        <a href="#collection">Collection</a>
+      </div>
+      <div class="foot-col">
+        <h4>Client Care</h4>
+        <a href="#">Shipping</a>
+        <a href="#">Refill Program</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h4>Join the list</h4>
+        <p style="opacity:0.6; margin-bottom:16px;">New releases, twice a year. Nothing else.</p>
+        <form class="foot-form" onsubmit="event.preventDefault(); this.querySelector('input').value='Thank you — check your inbox.';">
+          <input type="email" placeholder="Your email" required>
+          <button type="submit">Join →</button>
+        </form>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Noir Absolu, Paris. All rights reserved.</span>
+      <span>Designed as a portfolio piece</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:0.15});
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
